@@ -20,7 +20,7 @@ public class Main {
         //10 LIST
         //for(int i=0;i<10;i++)System.out.println(list10[i]);System.out.println("");
         start=System.nanoTime();
-        countingSort(list10,list10B,100);//-------------
+        quickSort(list10);//-------------
         
         System.out.print("Time sorting 10: \t");
         System.out.print(System.nanoTime()-start);
@@ -30,7 +30,7 @@ public class Main {
         
         //1000 LIST
         start=System.nanoTime();
-        countingSort(list1000,list1000B,10000);//-------------
+        quickSort(list1000);//-------------
         
         System.out.print("Time sorting 1000: \t");
         System.out.print(System.nanoTime()-start);
@@ -39,7 +39,7 @@ public class Main {
         
         //100k LIST
         start=System.nanoTime();
-        countingSort(list100000,list100000B,1000000);//-------------
+        quickSort(list100000);//-------------
         
         System.out.print("Time sorting 100000: \t");
         System.out.print(System.nanoTime()-start);
@@ -146,7 +146,7 @@ public class Main {
     	for(int i=0;i<max;i++)C[i]=0;
     	for(int j=1;j<arrA.length;j++)C[arrA[j]]++;
     	for(int i=1;i<max;i++)C[i]=C[i]+C[i-1];
-    	for(int j=arrA.length-1;j>=0;j--){
+    	for(int j=arrA.length-1;j>0;j--){
     		arrB[C[arrA[j]]]=arrA[j];
     		C[arrA[j]]--;
     	}
