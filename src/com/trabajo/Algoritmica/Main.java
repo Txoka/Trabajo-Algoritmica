@@ -5,29 +5,32 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args){
         Random rand=new Random();
-        int[] list10    =new int[10];
-        int[] list1000  =new int[1000];
-        int[] list100000=new int[100000];
-        for(int i=0;i<10;i++)list10[i]=rand.nextInt();
-        for(int i=0;i<1000;i++)list1000[i]=rand.nextInt();
-        for(int i=0;i<100000;i++)list100000[i]=rand.nextInt();
+        int[] list10     =new int[10];
+        int[] list1000 	 =new int[1000];
+        int[] list100000 =new int[100000];
+        int[] list10B    =new int[10];
+        int[] list1000B  =new int[1000];
+        int[] list100000B=new int[100000];
+        for(int i=0;i<10;i++)list10[i]=rand.nextInt(100);
+        for(int i=0;i<1000;i++)list1000[i]=rand.nextInt(10000);
+        for(int i=0;i<100000;i++)list100000[i]=rand.nextInt(1000000);
         long start;
         
         
         //10 LIST
         //for(int i=0;i<10;i++)System.out.println(list10[i]);System.out.println("");
         start=System.nanoTime();
-        selectionSort(list10);//-------------
+        countingSort(list10,list10B,100);//-------------
         
         System.out.print("Time sorting 10: \t");
         System.out.print(System.nanoTime()-start);
         System.out.println("ns");
-        //for(int i=0;i<10;i++)System.out.println(list10[i]);
+        //for(int i=0;i<10;i++)System.out.println(list10B[i]);
         
         
         //1000 LIST
         start=System.nanoTime();
-        selectionSort(list1000);//-------------
+        countingSort(list1000,list1000B,10000);//-------------
         
         System.out.print("Time sorting 1000: \t");
         System.out.print(System.nanoTime()-start);
@@ -36,7 +39,7 @@ public class Main {
         
         //100k LIST
         start=System.nanoTime();
-        selectionSort(list100000);//-------------
+        countingSort(list100000,list100000B,1000000);//-------------
         
         System.out.print("Time sorting 100000: \t");
         System.out.print(System.nanoTime()-start);
@@ -138,7 +141,14 @@ public class Main {
     	}
     }
     
-    static void countingSort(int[] arr){
-    	
+    static void countingSort(int[] arrA,int[] arrB,int max){
+    	int[] C=new int[max];
+    	for(int i=0;i<max;i++)C[i]=0;
+    	for(int j=1;j<arrA.length;j++)C[arrA[j]]++;
+    	for(int i=1;i<max;i++)C[i]=C[i]+C[i-1];
+    	for(int j=arrA.length-1;j>=0;j--){
+    		arrB[C[arrA[j]]]=arrA[j];
+    		C[arrA[j]]--;
+    	}
     }
 }
